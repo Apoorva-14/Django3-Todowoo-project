@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, 'todo/home.html')
 
+#AUTH
 def signupuser(request):
     if request.method == 'GET':
         return render(request, 'todo/signupuser.html', {'form':UserCreationForm()})
@@ -43,6 +44,7 @@ def logoutuser(request):
         logout(request)
         return redirect('home')
 
+#TODO
 @login_required
 def createtodo(request):
     if request.method == 'GET':
@@ -75,6 +77,7 @@ def viewtodo(request, todo_pk):
             return redirect('currenttodos')
         except ValueError:
             return render(request, 'todo/viewtodo.html', {'todo':todo , 'form':form, 'error':'BAD INFO'})
+            
 @login_required
 def completetodo(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
